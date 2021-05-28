@@ -1,10 +1,7 @@
-import os, discord, twitter, twitterimg
-from discord import embeds
+import os, discord, twitterimg
 from discord.ext import commands
 
 token = os.getenv("DISCORD_TOKEN")
-
-print(twitter)
 
 bot = commands.Bot(command_prefix='!')
 
@@ -29,7 +26,7 @@ async def hi(ctx):
 async def soft(ctx):
     ## Get some soft photos from the web and return it.
     url = twitterimg.query("%23ぬいぐるみ撮影60分一本勝負")
-    embed = discord.Embed(title = 'Soft!\n')
+    embed = discord.Embed(title = 'Soft!')
     embed.set_image(url=url)
     await ctx.send(embed=embed)
 
@@ -37,7 +34,7 @@ async def soft(ctx):
 async def wah(ctx):
     ## Get some soft photos from the web and return it.
     url = twitterimg.query("%23" + "inART")
-    embed = discord.Embed(title = 'Wah!\n')
+    embed = discord.Embed(title = 'Wah!')
     embed.set_image(url=url)
     await ctx.send(embed=embed)
 

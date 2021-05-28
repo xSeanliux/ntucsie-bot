@@ -10,7 +10,6 @@ def query(query_str):
     results = api.GetSearch(
         raw_query="q={}&result_type=recent&count=50".format(query_str)
     )
-    
     urls = []
     
     for res in results:
@@ -22,6 +21,7 @@ def query(query_str):
             continue
 
     id = random.randint(0, len(urls) - 1)
+    print(urls[id])
     return urls[id]
 
 if __name__ == "__main__":
