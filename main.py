@@ -63,18 +63,28 @@ async def gooruh(ctx):
     await ctx.send(embed=embed)
 
 @bot.command()
-async def zisk(ctx):
+async def zisk(ctx, *args):
     ## Randomly chooses a quote from ./zck_quotes/zckquotes and displays it
-    idx = random.randint(0, len(allquotes))
-    txt = allquotes[idx].splitlines()
-    mxlen = 0
-    fulltxt = ''
-    for x in txt:
-        if(x == ''):
-            continue
-        fulltxt = fulltxt + '> 　' + x.strip() + '\n'
-        mxlen = max(mxlen, len(x))
-    msg = '> 「\n %s > %s 」——ZCK#%03d' % (fulltxt, '　'*(mxlen + 1), idx)
-    await ctx.channel.send(msg)
+    def getMsg(idx):
+        if(idx >= len(allquotes)):
+            return "ZCK#%03d not found." % (idx)
+        txt = allquotes[idx].splitlines()
+        mxlen = 0
+        fulltxt = ''
+        for x in txt:
+            if(x == ''):
+                continue
+            fulltxt = fulltxt + '> 　' + x.strip() + '\n'
+            mxlen = max(mxlen, len(x))
+        msg = '> 「\n %s > %s 」——ZCK#%03d' % (fulltxt, '　'*(mxlen + 1), idx)
+        return msg
+
+    if(len(args) == 0):
+        idx = random.randint(0, len(allquotes))
+        await getMsg(idx)
+    else:
+        for _idx in args:
+            await getMsg(_idx)
+
 
 bot.run(token)
