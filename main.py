@@ -23,7 +23,8 @@ async def on_member_join(member):
         "歡迎 {} 加入台大資工新生群!\n".format(member.name) +
         "請看群組中的 announcement 頻道以進行身分認證"
     )
-
+    
+'''
 @bot.command()
 async def help(ctx):
     embed = discord.Embed(Title='Help')
@@ -32,6 +33,7 @@ async def help(ctx):
     embed.add_field(name = "wah", value = "return a photo of ina")
     embed.add_field(name = "zisk", value = "return a ZCK quotation")
     await ctx.send(embed=embed)
+'''
 
 @bot.command()
 async def hi(ctx):
