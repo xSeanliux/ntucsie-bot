@@ -3,7 +3,12 @@ from discord.ext import commands
 
 token = os.getenv("DISCORD_TOKEN")
 
-bot = commands.Bot(command_prefix='!')
+help_command = commands.DefaultHelpCommand(
+    no_category = 'Commands',
+    sort_commands = False
+)
+
+bot = commands.Bot(command_prefix='!', help_command=help_command)
 allquotes = []
 
 @bot.event
@@ -35,12 +40,12 @@ async def help(ctx):
     await ctx.send(embed=embed)
 '''
 
-@bot.command()
+@bot.command(brief = "Says hi!", description = "Says hi!")
 async def hi(ctx):
     print(ctx.channel)
     await ctx.send("Hi!")
 
-@bot.command()
+@bot.command(brief = "Shows a picture of soft", description = "Shows a picture of soft from twitter with tag ぬいぐるみ撮影60分一本勝負")
 async def soft(ctx):
     ## Get some soft photos from the web and return it.
     url = twitterimg.query("%23ぬいぐるみ撮影60分一本勝負")
@@ -48,7 +53,7 @@ async def soft(ctx):
     embed.set_image(url=url)
     await ctx.send(embed=embed)
 
-@bot.command()
+@bot.command(brief = "Shows a picture of ina", description = "Shows a picture of ina from twitter with tag inART")
 async def wah(ctx):
     ## Get some wah photos from the web and return it.
     url = twitterimg.query("%23" + "inART")
@@ -56,7 +61,7 @@ async def wah(ctx):
     embed.set_image(url=url)
     await ctx.send(embed=embed)
 
-@bot.command()
+@bot.command(brief = "Shows a picture of gura", description = "Shows a picture of gura from twitter with tag gawrt")
 async def gooruh(ctx):
     ## Get some shark photos from the web and return it.
     url = twitterimg.query("%23" + "gawrt")
@@ -64,7 +69,7 @@ async def gooruh(ctx):
     embed.set_image(url=url)
     await ctx.send(embed=embed)
 
-@bot.command()
+@bot.command(brief = "Shows a zck quotation", description = "Shows a zck quotation from the database")
 async def zisk(ctx):
     ## Randomly chooses a quote from ./zck_quotes/zckquotes and displays it
     idx = random.randint(0, len(allquotes))
