@@ -8,7 +8,7 @@ def query(query_str):
         access_token_secret = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
     )
     results = api.GetSearch(
-        raw_query="q={}&result_type=recent&count=50".format(query_str)
+        raw_query="q={}&result_type=recent&count=100".format(query_str)
     )
     urls = []
     
@@ -20,9 +20,9 @@ def query(query_str):
         except:
             continue
 
-    id = random.randint(0, len(urls) - 1)
-    print(urls[id])
-    return urls[id]
+    url = random.choice(urls)
+    print(url, len(urls))
+    return url
 
 if __name__ == "__main__":
     query("%23ぬいぐるみ撮影60分一本勝負")
