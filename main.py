@@ -1,13 +1,20 @@
-import os, discord, twitterimg
+import os, discord, twitterimg, pickle, random
 from discord.ext import commands
 
 token = os.getenv("DISCORD_TOKEN")
 
 bot = commands.Bot(command_prefix='!')
+allquotes = []
 
 @bot.event
 async def on_ready():
     print("Start!")
+    with open ('./zck_quotes/zckquotes', 'rb') as fp:
+        global allquotes
+        allquotes = pickle.load(fp)
+        print("Loaded", len(allquotes), "quotes")
+
+    
 
 @bot.event
 async def on_member_join(member):
@@ -32,10 +39,33 @@ async def soft(ctx):
 
 @bot.command()
 async def wah(ctx):
-    ## Get some soft photos from the web and return it.
+    ## Get some wah photos from the web and return it.
     url = twitterimg.query("%23" + "inART")
     embed = discord.Embed(title = 'Wah!')
     embed.set_image(url=url)
     await ctx.send(embed=embed)
+
+@bot.command()
+async def gooruh(ctx):
+    ## Get some shark photos from the web and return it.
+    url = twitterimg.query("%23" + "gawrt")
+    embed = discord.Embed(title = 'Shaaaaaark!')
+    embed.set_image(url=url)
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def zisk(ctx):
+    ## Randomly chooses a quote from ./zck_quotes/zckquotes and displays it
+    idx = random.randint(0, len(allquotes))
+    txt = allquotes[idx].splitlines()
+    mxlen = 0
+    fulltxt = ''
+    for x in txt:
+        if(x == ''):
+            continue
+        fulltxt = fulltxt + '> 　' + x.strip() + '\n'
+        mxlen = max(mxlen, len(x))
+    msg = '> 「\n %s > %s 」——ZCK#%03d' % (fulltxt, '　'*(mxlen + 1), idx)
+    await ctx.channel.send(msg)
 
 bot.run(token)
