@@ -30,7 +30,8 @@ async def on_message(message):
         if message.author.bot:
             return
         await message.channel.send(zck.query([])[0])
-    await bot.process_commands(message)
+    else:
+        await bot.process_commands(message)
 
 
 @bot.command(brief = "Says hi!", description = "Says hi!")
