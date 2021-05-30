@@ -1,9 +1,11 @@
-import random, pickle
+import random, pickle, os
 
 class quote:
     allquotes = []
     def __init__(self):
-        with open ('zckquotes', 'rb') as fp:
+        filename = os.path.realpath(__file__)
+        print(filename)
+        with open (os.path.dirname(filename)+ '/zckquotes', 'rb') as fp:
             self.allquotes = pickle.load(fp)
             print("Loaded", len(self.allquotes), "quotes")
 
@@ -35,5 +37,4 @@ class quote:
 zck = quote()
 
 if __name__ == "__main__":
-    zck = quote()
     print(zck.query([1, 2, 3, 4, 5]))
