@@ -59,18 +59,29 @@ async def gooruh(ctx):
     await ctx.send(embed=embed)
 
 @bot.command(brief = "Shows a zck quotation", description = "Shows a zck quotation from the database")
-async def zisk(ctx):
+async def zisk(ctx, *args): #variable size length
     ## Randomly chooses a quote from ./zck_quotes/zckquotes and displays it
-    idx = random.randint(0, len(allquotes))
-    txt = allquotes[idx].splitlines()
-    mxlen = 0
-    fulltxt = ''
-    for x in txt:
-        if(x == ''):
-            continue
-        fulltxt = fulltxt + '> 　' + x.strip() + '\n'
-        mxlen = max(mxlen, len(x))
-    msg = '> 「\n %s > %s 」——ZCK#%03d' % (fulltxt, '　'*(mxlen + 1), idx)
-    await ctx.channel.send(msg)
+    def getMsg(idx): #Gets the #idx -th quote, formats it, and returns it as a string
+        if(idx >= len(allquotes) || idx < 0):
+            return "ZCK#%03d not found." % (idx)
+        txt = allquotes[idx].splitlines()
+        mxlen = 0
+        fulltxt = ''
+        for x in txt:
+            if(x == ''):
+                continue
+            fulltxt = fulltxt + '> 　' + x.strip() + '\n'
+            mxlen = max(mxlen, len(x))
+        msg = '> 「\n%s> %s 」——ZCK#%03d' % (fulltxt, '　'*(mxlen + 1), idx)
+        return msg
+
+    if(len(args) == 0):
+        idx = random.randint(0, len(allquotes))
+        await ctx.send(getMsg(idx))
+    else:
+        for _idx in args:
+            await ctx.send(getMsg(int(_idx)))
+
+
 
 bot.run(token)
