@@ -62,7 +62,7 @@ async def gooruh(ctx):
 async def zisk(ctx, *args): #variable size length
     ## Randomly chooses a quote from ./zck_quotes/zckquotes and displays it
     def getMsg(idx): #Gets the #idx -th quote, formats it, and returns it as a string
-        if(idx >= len(allquotes) || idx < 0):
+        if idx >= len(allquotes) or idx < 0:
             return "ZCK#%03d not found." % (idx)
         txt = allquotes[idx].splitlines()
         mxlen = 0
