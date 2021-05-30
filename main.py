@@ -23,6 +23,15 @@ async def on_member_join(member):
         "請看群組中的 announcement 頻道以進行身分認證"
     )
 
+@bot.event
+async def on_message(message):
+    if message.author.bot:
+        return
+    msg = message.content.lower()
+    if "zck" in msg or "zisk" in msg:
+        await message.channel.send(zck.query([])[0])
+    
+
 @bot.command(brief = "Says hi!", description = "Says hi!")
 async def hi(ctx):
     print(ctx.channel)
@@ -54,7 +63,7 @@ async def gooruh(ctx):
 
 @bot.command(brief = "Shows a zck quotation", description = "Shows a zck quotation from the database")
 async def zisk(ctx, *args): #variable size length
-    arr = [int(arg) for arg in args]
+    arr = [int(num) for num in args]
     messages = zck.query(arr)
     for message in messages:
         await ctx.send(message)
