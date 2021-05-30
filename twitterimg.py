@@ -14,7 +14,8 @@ def query(query_str):
     
     for res in results:
         try:
-            url = res.media[0].media_url
+            # get a list of [image url, tweet url]
+            url = [res.media[0].media_url, res.media[0].expanded_url]
             if url != None:
                 urls.append(url)
         except:
