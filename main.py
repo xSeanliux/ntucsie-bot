@@ -1,4 +1,4 @@
-import os, discord, twitterimg, pickle, random
+import os, discord, twitterimg, requests, re
 from zck_quotes.zck import zck
 from discord.ext import commands
 
@@ -25,12 +25,13 @@ async def on_member_join(member):
 
 @bot.event
 async def on_message(message):
-    if message.author.bot:
-        return
     msg = message.content.lower()
     if "zck" in msg or "zisk" in msg:
+        if message.author.bot:
+            return
         await message.channel.send(zck.query([])[0])
-    
+    await bot.process_commands(message)
+
 
 @bot.command(brief = "Says hi!", description = "Says hi!")
 async def hi(ctx):
@@ -67,5 +68,13 @@ async def zisk(ctx, *args): #variable size length
     messages = zck.query(arr)
     for message in messages:
         await ctx.send(message)
+
+@bot.command(brief = "Corrects wrong Chinese words", description = "Makes a post request to https://coct.naer.edu.tw/spcheck/do/")
+async def denial(ctx, *args):
+    message = str(args[0])
+    r = requests.post('https://coct.naer.edu.tw/spcheck/do', json = {"text" : message})
+    msg = r.json()["output"]
+    msg = re.sub("<[^<>]*>", "", msg)
+    await ctx.send(msg)
 
 bot.run(token)
