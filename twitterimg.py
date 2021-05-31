@@ -14,13 +14,14 @@ def query(query_str):
     
     for res in results:
         try:
-            # get a list of [image url, tweet url]
-            url = [res.media[0].media_url, res.media[0].expanded_url]
+            # get a tuple of (image url, tweet url])
+            url = (res.media[0].media_url, res.media[0].expanded_url)
             if url != None:
                 urls.append(url)
         except:
             continue
-
+    print(len(urls))
+    urls = list(set(urls))
     url = random.choice(urls)
     print(url, len(urls))
     return url
