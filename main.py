@@ -25,13 +25,13 @@ async def on_member_join(member):
 
 @bot.event
 async def on_message(message):
+    if message.author.bot:
+        return
     msg = message.content.lower()
-    if "zck" in msg or "zisk" in msg:
-        if message.author.bot:
-            return
-        await message.channel.send(zck.query([])[0])
-    else:
+    if msg[0] == '!':
         await bot.process_commands(message)
+    elif "zck" in msg or "zisk" in msg:
+        await message.channel.send(zck.query([])[0])
 
 
 @bot.command(brief = "Says hi!", description = "Says hi!")
@@ -65,7 +65,10 @@ async def gooruh(ctx):
 
 @bot.command(brief = "Shows a zck quotation", description = "Shows a zck quotation from the database")
 async def zisk(ctx, *args): #variable size length
-    arr = [int(num) for num in args]
+    try:
+        arr = [int(num) for num in args]
+    except:
+        arr = []
     messages = zck.query(arr)
     for message in messages:
         await ctx.send(message)
