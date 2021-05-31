@@ -42,24 +42,24 @@ async def hi(ctx):
 @bot.command(brief = "Shows a picture of soft", description = "Shows a picture of soft from twitter with tag ぬいぐるみ撮影60分一本勝負")
 async def soft(ctx):
     ## Get some soft photos from the web and return it.
-    url = twitterimg.query("%23ぬいぐるみ撮影60分一本勝負")
-    embed = discord.Embed(title = 'Soft!')
+    url, source = twitterimg.query("%23ぬいぐるみ撮影60分一本勝負")
+    embed = discord.Embed(title = 'Soft!', description=source)
     embed.set_image(url=url)
     await ctx.send(embed=embed)
 
 @bot.command(brief = "Shows a picture of ina", description = "Shows a picture of ina from twitter with tag inART")
 async def wah(ctx):
     ## Get some wah photos from the web and return it.
-    url = twitterimg.query("%23" + "inART")
-    embed = discord.Embed(title = 'Wah!')
+    url, source = twitterimg.query("%23" + "inART")
+    embed = discord.Embed(title = 'Wah!', description=source)
     embed.set_image(url=url)
     await ctx.send(embed=embed)
 
 @bot.command(brief = "Shows a picture of gura", description = "Shows a picture of gura from twitter with tag gawrt")
 async def gooruh(ctx):
     ## Get some shark photos from the web and return it.
-    url = twitterimg.query("%23" + "gawrt")
-    embed = discord.Embed(title = 'Shaaaaaark!')
+    url, source = twitterimg.query("%23" + "gawrt")
+    embed = discord.Embed(title = 'Shaaaaaark!', description=source)
     embed.set_image(url=url)
     await ctx.send(embed=embed)
 
