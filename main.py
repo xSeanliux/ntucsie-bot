@@ -36,8 +36,10 @@ async def on_message(message):
 
 @bot.command(brief = "Says hi!", description = "Says hi!")
 async def hi(ctx):
-    print(ctx.channel)
-    await ctx.send("Hi!")
+    filename = os.path.realpath(__file__) 
+    filename = os.path.dirname(filename) + "/scum/hi.jpg"
+    with open (filename, 'rb') as fp:
+        await ctx.send(file = discord.File(fp))
 
 @bot.command(brief = "Shows a picture of soft", description = "Shows a picture of soft from twitter with tag ぬいぐるみ撮影60分一本勝負")
 async def soft(ctx):
