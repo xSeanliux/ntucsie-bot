@@ -1,4 +1,4 @@
-import os, discord, twitterimg, requests, re
+import os, discord, twitterimg, requests, re, igimg
 from zck_quotes.zck import zck
 from discord.ext import commands
 
@@ -62,6 +62,14 @@ async def gooruh(ctx):
     ## Get some shark photos from the web and return it.
     url, source = twitterimg.query("%23" + "gawrt")
     embed = discord.Embed(title = 'Shaaaaaark!', description=source)
+    embed.set_image(url=url)
+    await ctx.send(embed=embed)
+
+@bot.command(brief = "Shows a picture of ramen", description = "Shows a picture of ramen from instagram with tag 拉麵")
+async def ramen(ctx):
+    ## Get some shark photos from the web and return it.
+    url, source = igimg.query("拉麵")
+    embed = discord.Embed(title = 'Ramen!', description="https://www.instagram.com/p/" + source)
     embed.set_image(url=url)
     await ctx.send(embed=embed)
 
