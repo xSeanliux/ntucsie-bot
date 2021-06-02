@@ -71,7 +71,7 @@ async def gooruh(ctx):
 @bot.command(brief = "Shows a picture of ramen", description = "Shows a picture of ramen from instagram with tag 拉麵")
 async def ramen(ctx):
     ## Get some shark photos from the web and return it.
-    url, source = igimg.query("拉麵")
+    url, source = igimg.query("台北拉麵")
     embed = discord.Embed(title = 'Ramen!', description="https://www.instagram.com/p/" + source)
     embed.set_image(url=url)
     await ctx.send(embed=embed)

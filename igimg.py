@@ -10,8 +10,7 @@ def query(hashtag):
     pageNumber = 1
     urls = []
     while hasNextPage:
-        if pageNumber > 1 : break
-        print("Page " + str(pageNumber))
+        if len(urls) > 20 : break
         sections = jsonData['data']['recent']['sections']
 
         for section in sections:
@@ -28,6 +27,7 @@ def query(hashtag):
                 params={"__a": 1,
                         "max_id": jsonData['data']['recent']['next_max_id']}
             )
+        print(pageNumber)
         pageNumber += 1
     urls = list(set(urls))
     url = random.choice(urls)
@@ -35,5 +35,5 @@ def query(hashtag):
     return url
 
 if __name__ == '__main__':
-    query("拉麵")
+    query("台北拉麵")
     
