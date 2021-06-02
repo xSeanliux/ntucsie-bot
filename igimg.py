@@ -2,7 +2,7 @@ import instaloader, random, os
 
 def query(hashtag):
     session = instaloader.Instaloader()
-    session.login(user = "ais3.202001", passwd = os.getenv("IG_PASSWORD"))
+    session.login(user = "ais3.202002", passwd = os.getenv("IG_PASSWORD"))
 
     jsonData = session.context.get_json(path="explore/tags/" + hashtag + "/", params={"__a": 1})
     

@@ -28,10 +28,13 @@ async def on_message(message):
     if message.author.bot:
         return
     msg = message.content.lower()
-    if msg[0] == '!':
-        await bot.process_commands(message)
-    elif "zck" in msg or "zisk" in msg:
-        await message.channel.send(zck.query([])[0])
+    try:
+        if msg[0] == '!':
+            await bot.process_commands(message)
+        elif "zck" in msg or "zisk" in msg:
+            await message.channel.send(zck.query([])[0])
+    except: pass
+    
 
 
 @bot.command(brief = "Says hi!", description = "Says hi!")
