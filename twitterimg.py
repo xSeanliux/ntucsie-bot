@@ -20,7 +20,6 @@ def query(query_str):
                 urls.append(url)
         except:
             continue
-    print(len(urls))
     urls = list(set(urls))
     url = random.choice(urls)
     print(url, len(urls))

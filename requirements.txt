@@ -6,6 +6,7 @@ chardet==4.0.0
 discord.py==1.7.2
 future==0.18.2
 idna==2.10
+instaloader==4.7.1
 multidict==5.1.0
 oauthlib==3.1.0
 python-twitter==3.5

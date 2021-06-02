@@ -29,10 +29,11 @@ def query(hashtag):
                         "max_id": jsonData['data']['recent']['next_max_id']}
             )
         pageNumber += 1
-    
-    print(len(urls))
-    return random.choice(urls)
+    urls = list(set(urls))
+    url = random.choice(urls)
+    print(url, len(urls))
+    return url
 
 if __name__ == '__main__':
-    print(query("拉麵"))
+    query("拉麵")
     
