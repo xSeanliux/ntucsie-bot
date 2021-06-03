@@ -1,16 +1,22 @@
-import instaloader, random, os
+import instaloader, random, os, time
+
+urls = []
+last_time = 0
+
 
 def query(hashtag):
+    global urls, last_time
+    cur_time = time.time()
+    if cur_time - last_time < 86400 : return random.choice(urls)
+    urls = []
+    last_time = cur_time
     session = instaloader.Instaloader()
     session.login(user = "ais3.202001", passwd = os.getenv("IG_PASSWORD"))
-
     jsonData = session.context.get_json(path="explore/tags/" + hashtag + "/", params={"__a": 1})
-    
     hasNextPage = True
     pageNumber = 1
-    urls = []
     while hasNextPage:
-        if len(urls) > 20 : break
+        if len(urls) > 40 : break
         sections = jsonData['data']['recent']['sections']
 
         for section in sections:
@@ -36,4 +42,3 @@ def query(hashtag):
 
 if __name__ == '__main__':
     query("台北拉麵")
-    
