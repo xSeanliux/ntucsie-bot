@@ -36,7 +36,6 @@ async def on_message(message):
     except: pass
     
 
-
 @bot.command(brief = "Says hi!", description = "Says hi!")
 async def hi(ctx):
     filename = os.path.realpath(__file__) 
@@ -68,9 +67,18 @@ async def gooruh(ctx):
     embed.set_image(url=url)
     await ctx.send(embed=embed)
 
+@bot.command(brief = "Shows a picture of designated tag", description = "Shows a picture of designated tag from twitter with tag ぬいぐるみ撮影60分一本勝負")
+async def twit(ctx, *args):
+    ## Get some photos from the web and return it.
+    que_str = str(args[0])
+    url, source = twitterimg.query("%23" + que_str)
+    embed = discord.Embed(title = 'Here is your {}!'.format(que_str), description=source)
+    embed.set_image(url=url)
+    await ctx.send(embed=embed)
+
 @bot.command(brief = "Shows a picture of ramen", description = "Shows a picture of ramen from instagram with tag 拉麵")
 async def ramen(ctx):
-    ## Get some shark photos from the web and return it.
+    ## Get some ramen photos from the web and return it.
     url, source = igimg.query("台北拉麵")
     embed = discord.Embed(title = 'Ramen!', description="https://www.instagram.com/p/" + source)
     embed.set_image(url=url)
