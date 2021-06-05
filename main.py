@@ -102,4 +102,15 @@ async def denial(ctx, *args):
     msg = re.sub("<[^<>]*>", "", msg)
     await ctx.send(msg)
 
+@bot.command(brief = "Remind the user after {input} minutes", description = "Enter an integer. The bot will tag you after that time(in minutes). Type cancel(no prefix) to cancel the countdown at any time.")
+async def countdown(ctx, time : int):
+    await ctx.send("Countdown started!")
+    def check(message):
+        return message.channel == ctx.channel and message.author == ctx.author and message.content.lower() == "cancel"
+    try:
+        await bot.wait_for("message", check=check, timeout=time * 60)
+        await ctx.send("Countdown cancelled.")
+    except:
+        await ctx.send("{} Your countdown has ended!".format(ctx.author.mention))
+
 bot.run(token)
